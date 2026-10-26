@@ -1,0 +1,11 @@
+Shipping service deployed.
+
+Check rollout:
+  kubectl -n {{ .Release.Namespace }} rollout status deployment/{{ include "shipping.fullname" . }}
+
+List resources:
+  kubectl -n {{ .Release.Namespace }} get deploy,pods,svc
+
+Test locally using port-forward:
+  kubectl -n {{ .Release.Namespace }} port-forward svc/{{ include "shipping.fullname" . }} {{ .Values.service.port }}:{{ .Values.service.port }}
+  curl http://127.0.0.1:{{ .Values.service.port }}/api/shipping
